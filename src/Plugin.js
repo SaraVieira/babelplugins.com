@@ -134,7 +134,7 @@ const Plugin = ({ hit, open, handleOpen }) => (
       >
         <img src={Github} height="13" alt="Github logo" />
       </a>
-      <Arrow reverse={open} onClick={() => handleOpen(!open)} src={Down} />
+      <Arrow alt={`${open} ? 'close': 'open'`} reverse={open} onClick={() => handleOpen(!open)} src={Down} />
     </Flex>
     {open ? (
       <Content>
@@ -153,7 +153,7 @@ const Plugin = ({ hit, open, handleOpen }) => (
               // onCopy={() => this.setState({ copied: true })}
             >
               <Button>
-                <img src={Copy} height="16" />
+                <img src={Copy} height="16" alt="Copy to Clipboard" />
               </Button>
             </CopyToClipboard>
           </FlexItem>
@@ -164,7 +164,7 @@ const Plugin = ({ hit, open, handleOpen }) => (
               // onCopy={() => this.setState({ copied: true })}
             >
               <Button>
-                <img src={Copy} height="16" />
+                <img src={Copy} height="16" alt="Copy to Clipboard" />
               </Button>
             </CopyToClipboard>
           </FlexItem>

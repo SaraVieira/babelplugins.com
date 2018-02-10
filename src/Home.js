@@ -163,7 +163,7 @@ class Home extends Component {
               rel="noopener noreferrer"
               target="_blank"
             >
-              <Github src={gh} />
+              <Github src={gh} alt="go to github" />
             </a>
           </Open>
         </LogoWrapper>
