@@ -1,0 +1,8 @@
+{
+  "presets": [
+    "@jaredpalmer/after/babel", // NEEDED
+  ],
+  "plugins": [
+    "styled-components"
+  ]
+}

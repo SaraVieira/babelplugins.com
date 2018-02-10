@@ -2,205 +2,210 @@ import React, { Component } from 'react'
 import logo from './assets/logo.svg'
 import gh from './assets/gh.svg'
 import start from './assets/start.svg'
+import side from './assets/side.svg'
 import styled from 'styled-components'
 import RawSearchBox from './RawSearch'
-import { Hits, Configure, InstantSearch } from 'react-instantsearch/dom'
+import Plugin from './Plugin'
+import {
+  Hits,
+  Configure,
+  InstantSearch
+} from 'react-instantsearch/dom'
 import { connectSearchBox } from 'react-instantsearch/connectors'
 
 const config = {
-	apiKey: '1f0cc4b7da241f62651b85531d788fbd',
-	appId: 'OFCNCOG2CU',
-	indexName: 'npm-search',
+  apiKey: '1f0cc4b7da241f62651b85531d788fbd',
+  appId: 'OFCNCOG2CU',
+  indexName: 'npm-search'
 }
 
 const Logo = styled.img`
-	width: 235px;
+  width: 235px;
 `
 
 const Page = styled.div`
-	padding-top: 80px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	max-width: 80%;
-	margin: auto;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 960px;
+  max-width: 80%;
+  margin: auto;
 `
 
 const Open = styled.span`
-	font-size: 14px;
-	letter-spacing: -0.01em;
+  font-size: 14px;
+  letter-spacing: -0.01em;
 
-	color: rgba(0, 0, 0, 0.47);
-	transform: rotate(-6deg);
-	display: flex;
-	align-items: center;
+  color: rgba(0, 0, 0, 0.47);
+  transform: rotate(-6deg);
+  display: flex;
+  align-items: center;
 `
 
 const Github = styled.img`
-	width: 13px;
-	height: 13px;
-	margin-left: 5px;
+  width: 13px;
+  height: 13px;
+  margin-left: 5px;
 `
 
 const Start = styled.img`
-	position: absolute;
-	margin-left: -20px;
-	margin-top: 120px;
-	transform: translateX(-100%);
+  position: absolute;
+  margin-left: -20px;
+  margin-top: 120px;
+  transform: translateX(-100%);
 `
 
 const LogoWrapper = styled.div`
-	width: 100%;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
 `
 
 const Checkbox = styled.input`
-	height: 0;
-	width: 0;
-	visibility: hidden;
+  height: 0;
+  width: 0;
+  visibility: hidden;
 
-	&:checked + label + span {
-		background: #8be20c;
-	}
+  &:checked + label + span {
+    background: #8be20c;
+  }
 
-	&:checked + label + span:after {
-		left: calc(100% - 2px);
-		transform: translateX(-100%);
-	}
+  &:checked + label + span:after {
+    left: calc(100% - 2px);
+    transform: translateX(-100%);
+  }
 `
 
 const Label = styled.span`
-	cursor: pointer;
-	width: 43px;
-	height: 20px;
-	background: #e5e5e5;
-	display: block;
-	border-radius: 10px;
-	position: relative;
-	margin-top: 4px;
+  cursor: pointer;
+  width: 43px;
+  height: 20px;
+  background: #e5e5e5;
+  display: block;
+  border-radius: 10px;
+  position: relative;
+  margin-top: 4px;
 
-	&:after {
-		content: '';
-		position: absolute;
-		top: 2px;
-		left: 2px;
-		width: 23px;
-		height: 16px;
+  &:after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 23px;
+    height: 16px;
 
-		background: linear-gradient(2.86deg, #f5f5f5 -40.85%, #ffffff 76.06%);
-		box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.22);
-		border-radius: 8px;
-		transition: all 0.3s ease-out;
-	}
+    background: linear-gradient(2.86deg, #f5f5f5 -40.85%, #ffffff 76.06%);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.22);
+    border-radius: 8px;
+    transition: all 0.3s ease-out;
+  }
 `
 
 const CheckboxWrapper = styled.label`
-	position: absolute;
-	font-weight: 600;
-	line-height: normal;
-	font-size: 13px;
-	letter-spacing: -0.01em;
-	text-transform: uppercase;
-	right: 35px;
-	top: 47px;
-	transform: translateY(-50%);
-	color: #bdbdbd;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	cursor: pointer;
-	user-select: none;
+  position: absolute;
+  font-weight: 600;
+  line-height: normal;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  right: 35px;
+  top: 47px;
+  transform: translateY(-50%);
+  color: #bdbdbd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
 `
 
 const Main = styled.main`
-	margin-top: 60px;
-	display: flex;
-	justify-content: center;
-	max-width: 80%;
+  margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 `
 
-const Plugin = styled.article`
-	display: block;
-	padding: 20px;
-	background: white;
-	margin-bottom: 20px;
+const Padding = styled.div`
+  padding: 0 24px;
+  background-size: 100%;
+  background-repeat: repeat-y;
+  max-width: 100%;
+  background-image: url(${side});
+  margin-bottom: 40px;
 `
 
 class Home extends Component {
-	state = {
-		official: false,
-	}
+  state = {
+    official: false
+  }
 
-	_onShowOfficialPluginsChanged = e => {
-		this.setState({ official: !this.state.official })
-	}
+  _onShowOfficialPluginsChanged = e => {
+    this.setState({ official: !this.state.official })
+  }
 
-	render() {
-		const SearchBox = connectSearchBox(RawSearchBox)
-		const { official } = this.state
+  render() {
+    const SearchBox = connectSearchBox(RawSearchBox)
+    const { official } = this.state
 
-		const hitComponent = ({ hit }) => (
-			<Plugin key={hit.name}>
-				{hit.name}
-			</Plugin>
-		)
+    return (
+      <Page>
+        <LogoWrapper>
+          <Start src={start} alt="start here" />
+          <Logo src={logo} alt="Babel Plugins Logo" />
+          <Open>
+            It's Open Source{' '}
+            <a
+              href="https://github.com/saraVieira/babelplugins.com"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              <Github src={gh} />
+            </a>
+          </Open>
+        </LogoWrapper>
+        <Main>
+          <InstantSearch
+            apiKey={config.apiKey}
+            appId={config.appId}
+            indexName={config.indexName}
+          >
+            <Configure
+              hitsPerPage={500}
+              // attributesToRetrieve={[
+              // 	'name',
+              // 	'version',
+              // 	'description',
+              // 	'repository',
+              // ]}
+              attributesToHighlight={['name', 'description']}
+              filters={`keywords:babel-plugin ${
+                official ? 'AND owner.name:babel' : ''
+              }`}
+            />
 
-		return (
-			<Page>
-				<LogoWrapper>
-					<Start src={start} alt="start here" />
-					<Logo src={logo} alt="Babel Plugins Logo" />
-					<Open>
-						It's Open Source{' '}
-						<a
-							href="https://github.com/saraVieira/babelplugins.com"
-							rel="noopener noreferrer"
-							target="_blank"
-						>
-							<Github src={gh} />
-						</a>
-					</Open>
-				</LogoWrapper>
-				<Main>
-					<InstantSearch
-						apiKey={config.apiKey}
-						appId={config.appId}
-						indexName={config.indexName}
-					>
-						<Configure
-							hitsPerPage={500}
-							attributesToRetrieve={[
-								'name',
-								'version',
-								'description',
-								'repository',
-							]}
-							attributesToHighlight={['name', 'description']}
-							filters={`keywords:babel-plugin ${
-								official ? 'AND owner.name:babel' : ''
-							}`}
-						/>
-
-						<div>
-							<SearchBox>
-								<CheckboxWrapper>
-									<Checkbox
-										checked={official}
-										onChange={e => {
-											this._onShowOfficialPluginsChanged(e)
-										}}
-										type="checkbox"
-									/>
-									<label>Official ?</label>
-									<Label />
-								</CheckboxWrapper>
-							</SearchBox>
-							<Hits hitComponent={hitComponent} />
-						</div>
-						{/* {pluginsLoading ? (
+            <div>
+              <SearchBox>
+                <CheckboxWrapper>
+                  <Checkbox
+                    checked={official}
+                    onChange={e => {
+                      this._onShowOfficialPluginsChanged(e)
+                    }}
+                    type="checkbox"
+                  />
+                  <label>Official ?</label>
+                  <Label />
+                </CheckboxWrapper>
+              </SearchBox>
+              <Padding>
+                <Hits hitComponent={Plugin} />
+              </Padding>
+            </div>
+            {/* {pluginsLoading ? (
 								'Loading'
 							) : (
 								<div>
@@ -209,11 +214,11 @@ class Home extends Component {
 										: null}
 								</div>
 							)} */}
-					</InstantSearch>
-				</Main>
-			</Page>
-		)
-	}
+          </InstantSearch>
+        </Main>
+      </Page>
+    )
+  }
 }
 
 export default Home

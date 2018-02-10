@@ -1,4 +1,3 @@
-import './index.css'
 import Home from './Home'
 import About from './About'
 import { injectGlobal } from 'styled-components'
@@ -11,17 +10,22 @@ injectGlobal`
     padding: 0;
     margin: 0;
   }
+	.ais-InstantSearch__root { width: 100%; }
+
+	* {   box-sizing: border-box; }
+
+	a { text-decoration: none; }
 `
 
 export default [
-	{
-		path: '/',
-		exact: true,
-		component: Home,
-	},
-	{
-		path: '/about',
-		exact: true,
-		component: About,
-	},
+  {
+    path: '/',
+    exact: true,
+    component: Home
+  },
+  {
+    path: '/about',
+    exact: true,
+    component: About
+  }
 ]
